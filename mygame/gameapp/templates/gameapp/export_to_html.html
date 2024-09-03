@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Player Levels</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gameapp/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Player Levels</h1>
+        <table>
+            <tr>
+                <th>Player ID</th>
+                <th>Level Title</th>
+                <th>Completed</th>
+                <th>Prizes</th>
+            </tr>
+            {% for item in data %}
+            <tr>
+                <td>{{ item.player_id }}</td>
+                <td>{{ item.level_title }}</td>
+                <td>{{ item.is_completed }}</td>
+                <td>{{ item.prizes }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

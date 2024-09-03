@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Login</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gameapp/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Добро пожаловать, {{ player_name }}!</h1>
+        <p>Ваши текущие баллы: {{ daily_points }}</p>
+        <p>Баллы за вход успешно начислены.</p>
+    </div>
+</body>
+</html>
