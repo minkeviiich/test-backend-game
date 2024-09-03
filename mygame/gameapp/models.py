@@ -13,30 +13,12 @@ class Player(models.Model):
     def __str__(self):
         return self.user.username
     
-    def assign_prize(self, level, prize):
+    def assign_prize(self, level, prize, boost=None):
         player_level, created = PlayerLevel.objects.get_or_create(player=self, level=level)
         if not player_level.is_completed:
             player_level.is_completed = True
             player_level.save()
-            LevelPrize.objects.create(level=level, prize=prize, received=timezone.now())
-
-    @staticmethod
-    def export_to_csv():
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="player_levels.csv"'
-
-        writer = csv.writer(response)
-        writer.writerow(['Player ID', 'Level Title', 'Completed', 'Prize'])
-
-        for player_level in PlayerLevel.objects.all():
-            writer.writerow([
-                player_level.player.id,
-                player_level.level.title,
-                player_level.is_completed,
-                ', '.join([lp.prize.title for lp in LevelPrize.objects.filter(level=player_level.level)])
-            ])
-
-        return response
+            LevelPrize.objects.create(level=level, prize=prize, received=timezone.now(), boost=boost) 
 
 
 class Boost(models.Model):
@@ -74,4 +56,5 @@ class LevelPrize(models.Model):
     level = models.ForeignKey(Level, on_delete=models.CASCADE)
     prize = models.ForeignKey(Prize, on_delete=models.CASCADE)
     received = models.DateField()
+    boost = models.ForeignKey(Boost, on_delete=models.CASCADE, null=True, blank=True)
 

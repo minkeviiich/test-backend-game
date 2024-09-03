@@ -11,16 +11,20 @@
         <table>
             <tr>
                 <th>Player ID</th>
+                <th>Player Name</th> 
                 <th>Level Title</th>
                 <th>Completed</th>
                 <th>Prizes</th>
+                <th>Boosts</th> 
             </tr>
             {% for item in data %}
             <tr>
                 <td>{{ item.player_id }}</td>
+                <td>{{ item.player_name }}</td> 
                 <td>{{ item.level_title }}</td>
                 <td>{{ item.is_completed }}</td>
                 <td>{{ item.prizes }}</td>
+                <td>{{ item.boosts }}</td> 
             </tr>
             {% endfor %}
         </table>
